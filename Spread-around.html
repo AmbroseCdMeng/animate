@@ -1,0 +1,114 @@
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+<style>
+    body {
+        width: 99%;
+        height: 97%;
+        background-color: antiquewhite;
+    }
+
+    /* btn 父级元素 */
+    .box_main {
+        text-align: center;
+    }
+
+    /* 伪元素辅助对齐 实现垂直居中 */
+    .box_main::after {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }
+
+    /* 圆形 */
+    .radio {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: absolute;
+        opacity: 0;
+        /* (radio.width - box_btn.width) / 2 = (100 - 10) / 2  */
+        left: -45;
+        top: -45;
+    }
+
+    /* 按钮定位 水平垂直居中 position:relative 属性 实现其余标签的相对定位 */
+    .box_btn {
+        display: inline-block;
+        vertical-align: middle;
+        opacity: 1;
+        width: 10px;
+        height: 10px;
+        position: relative;
+    }
+
+    .btn {
+        position: absolute;
+        background-color: brown;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        z-index: 9;
+    }
+</style>
+
+
+<body>
+    <button onclick="addDom()">点击此处随机生成n个图形</button>
+    <span>点击屏幕中心红点开始动画</span>
+    <div class="box_main">
+        <div class="box_btn">
+            <div class="btn">
+                <span></span>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $('.btn').click(animate);
+
+    var flag = true;
+
+    function addDom(count) {
+        var random = count || Math.floor(Math.random() * 14 + 2);
+        var random16 = function () {
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += (Math.random() * 16 | 0).toString(16);
+            }
+            return color;
+        }
+        $('.animate').remove();
+        for (let index = 0; index < random; index++) {
+            const animate_id = 'animate_' + index;
+            const animate_text = 'animate_' + index;
+            const randomColor = random16();
+            $('.box_btn').append($('<div id=\'' + animate_id + '\' style=\'background-color:' +
+                randomColor +
+                '\'>' + '' + '</div>').addClass('animate').addClass(
+                'radio'));
+        }
+    }
+    $(function () {
+        addDom();
+    })
+
+    function animate() {
+        let _animate = $('.animate');
+        let radius = 200;
+        $.each(_animate, function (i, ele) {
+            let left = Math.cos(2 * Math.PI / _animate.length * i) * radius - ($(this).width() / 2);
+            let top = Math.sin(2 * Math.PI / _animate.length * i) * radius - ($(this).height() / 2);
+            $(this).animate({
+                'left': flag ? left : '-45',
+                'top': flag ? top : '-45',
+                'opacity': flag ? '1' : '0',
+            }, {
+                duration: 3000,
+                easing: 'swing'
+            })
+        })
+        flag = !flag;
+    }
+</script>
