@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: aqua;
+        }
+
+        .warpper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .circle {
+            border-radius: 50%;
+        }
+
+        .black {
+            background-color: black;
+        }
+
+        .white {
+            background-color: white;
+        }
+
+        .gossip {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            animation: rotating 1s infinite linear;
+        }
+
+        @keyframes rotating {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .semicircle {
+            width: 50%;
+            height: 100%;
+        }
+
+        .semicircle.left {
+
+            position: absolute;
+            left: 0;
+        }
+
+        .semicircle.right {
+            position: absolute;
+            right: 0;
+        }
+
+        .big {
+            width: 50%;
+            height: 50%;
+        }
+
+        .small {
+            width: 10%;
+            height: 10%;
+        }
+
+        .big.bottom {
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -25%;
+        }
+
+        .big.top {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -25%;
+        }
+
+        .small.top {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            margin-top: -5%;
+            margin-left: -5%;
+        }
+
+        .small.bottom {
+            position: absolute;
+            bottom: 25%;
+            right: 50%;
+            margin-bottom: -5%;
+            margin-right: -5%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="warpper">
+        <div class="gossip circle">
+            <div class="semicircle left black"></div>
+            <div class="semicircle right white"></div>
+            <div class="circle big top black"></div>
+            <div class="circle big bottom white"></div>
+            <div class="circle small top white"></div>
+            <div class="circle small bottom black"></div>
+        </div>
+    </div>
+</body>
+
+</html>
