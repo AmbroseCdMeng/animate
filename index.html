@@ -1,0 +1,91 @@
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="refresh" content="10">
+    <title></title>
+    <style>
+        * {}
+
+        body {
+            background-color: aqua;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .circle {
+            border-radius: 50%;
+        }
+
+        .inner {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .small {
+            width: 40px;
+            height: 40px;
+
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .white {
+            background-color: white;
+        }
+
+        .pos-12 {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -20px;
+        }
+
+        .pos-1 {
+            position: absolute;
+            /* 2019-2月 CSS 宣布支持三角函数 但目前尚未普及到浏览器 */
+            /* top: calc((cos(30deg) + 1) * 200); */
+            /* left: calc((sin(30deg) + 1)* 200); */
+            margin-left: -20px;
+        }
+
+        .pos-2 {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -20px;
+        }
+
+        .pos-3 {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="inner circle red">
+            <div class="circle small white pos-12"></div>
+            <div class="circle small white pos-1"></div>
+        </div>
+    </div>
+</body>
+
+</html>
