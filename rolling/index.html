@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="refresh" content="10">
+    <meta http-equiv="refresh" content="50">
     <title></title>
     <style>
         * {}
@@ -50,7 +50,7 @@
         .pos-12 {
             position: absolute;
             top: 0;
-            left: 50%;
+            left: 200px;
             margin-left: -20px;
         }
 
@@ -59,21 +59,6 @@
             /* 2019-2月 CSS 宣布支持三角函数 但目前尚未普及到浏览器 */
             /* top: calc((cos(30deg) + 1) * 200); */
             /* left: calc((sin(30deg) + 1)* 200); */
-            margin-left: -20px;
-        }
-
-        .pos-2 {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            margin-left: -20px;
-        }
-
-        .pos-3 {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            margin-left: -20px;
         }
     </style>
 </head>
@@ -83,9 +68,47 @@
     <div class="wrapper">
         <div class="inner circle red">
             <div class="circle small white pos-12"></div>
+
             <div class="circle small white pos-1"></div>
+            <div class="circle small white pos-2"></div>
+            <div class="circle small white pos-3"></div>
+
+            <div class="circle small white pos-4"></div>
+            <div class="circle small white pos-5"></div>
+            <div class="circle small white pos-6"></div>
+
+            <div class="circle small white pos-7"></div>
+            <div class="circle small white pos-8"></div>
+            <div class="circle small white pos-9"></div>
+
+            <div class="circle small white pos-10"></div>
+            <div class="circle small white pos-11"></div>
         </div>
     </div>
+
+    <script>
+        $(function () {
+            initPostition();
+        })
+        function initPostition() {
+            const R = parseInt($('.inner.circle').css('width')) / 2;
+            $('.circle.small').each((i, t) => {
+                t = $(t);
+                const r = parseInt(t.css('width')) / 2;
+                t.css('position', 'absolute');
+                t.css('left', (R * (1 + Math.sin(Math.PI / 180 * (i * 30)))) + 'px');
+                t.css('top', (R * (1 - Math.cos(Math.PI / 180 * (i * 30)))) + 'px');
+                t.css('margin-left', -r * (Math.cos(Math.PI / 180 * (i * 30))) + 'px');
+                t.css('margin-top', -r * (Math.sin(Math.PI / 180 * (i * 30))) + 'px');
+
+                console.log('pos-index' + i + 'r' + r
+                    + '... left:' + t.css('left')
+                    + '... top:' + t.css('top')
+                    + '... margin-left:' + t.css('margin-left')
+                    + '... margin-top:' + t.css('margin-top'))
+            })
+        }
+    </script>
 </body>
 
 </html>
