@@ -68,8 +68,7 @@
 
     <div class="wrapper">
         <div class="inner circle red">
-            <!-- <div class="circle small white pos-99"></div> -->
-
+            <!-- 
             <div class="circle small white pos-12"></div>
 
             <div class="circle small white pos-1"></div>
@@ -78,27 +77,27 @@
 
             <div class="circle small white pos-4"></div>
             <div class="circle small white pos-5"></div>
-
-            <!-- 
-            <div class="circle small white pos-6"></div>
-
-            <div class="circle small white pos-7"></div>
-            <div class="circle small white pos-8"></div>
-            <div class="circle small white pos-9"></div>
-
-            <div class="circle small white pos-10"></div>
-            <div class="circle small white pos-11"></div>
-             -->
+            -->
         </div>
     </div>
 
     <script>
+        var n = 10,/* 内部小球的个数 */
+            during = 3000;/*单个小球单次动画时间*/
         var R = parseInt($('.inner.circle').css('width')) / 2;
 
         $(function () {
+            initcircle();
             initPostition();
             start();
         })
+
+        function initcircle() {
+            $container = $('.inner.circle.red');
+            for (let i = 0; i < n; i++) {
+                $container.append($('<div></div>').addClass('circle small white pos-' + i));
+            }
+        }
 
         function initPostition() {
 
@@ -106,45 +105,41 @@
                 $t = $(t);
                 const r = parseInt($t.css('width')) / 2;
                 $t.css('position', 'absolute');
-                $t.css('left', (R * (1 + Math.sin(Math.PI / 180 * (i * 30)))) -
-                    (r * (1 + Math.sin(Math.PI / 180 * (i * 30)))) + 'px');
-                $t.css('top', (R * (1 - Math.cos(Math.PI / 180 * (i * 30)))) -
-                    (r * (1 - Math.cos(Math.PI / 180 * (i * 30)))) + 'px');
+                $t.css('left', (R * (1 + Math.sin(Math.PI / 180 * (i * (180 / n))))) -
+                    (r * (1 + Math.sin(Math.PI / 180 * (i * (180 / n))))) + 'px');
+                $t.css('top', (R * (1 - Math.cos(Math.PI / 180 * (i * (180 / n))))) -
+                    (r * (1 - Math.cos(Math.PI / 180 * (i * (180 / n))))) + 'px');
 
                 // 为了方便实现动画 直接计算 left 和 top 
-                //$t.css('margin-left', -r * (1 + Math.sin(Math.PI / 180 * (i * 30))) + 'px');
-                //$t.css('margin-top', -r * (1 - Math.cos(Math.PI / 180 * (i * 30))) + 'px');
+                //$t.css('margin-left', -r * (1 + Math.sin(Math.PI / 180 * (i * (180 / n)))) + 'px');
+                //$t.css('margin-top', -r * (1 - Math.cos(Math.PI / 180 * (i * (180 / n)))) + 'px');
             })
+        }
+
+        function move(i, t) {
+            const $t = $(t);
+            const r = parseInt($t.css('width')) / 2;
+            var left = (R * (1 + Math.sin(Math.PI / 180 * (i * (180 / n))))) -
+                (r * (1 + Math.sin(Math.PI / 180 * (i * (180 / n)))));
+            var top = (R * (1 - Math.cos(Math.PI / 180 * (i * (180 / n))))) -
+                (r * (1 - Math.cos(Math.PI / 180 * (i * (180 / n)))));
+            $t.animate({
+                'left': left,
+                'top': top,
+            },
+                during,
+                'swing',
+                () => {
+                    move((i < n) ? (i + n) : (i - n), t);
+                }
+            )
         }
 
         function start() {
             $('.circle.small').each((i, t) => {
                 setTimeout(() => {
-                    const $t = $(t);
-                    const r = parseInt($t.css('width')) / 2;
-
-                    var left_default = (R * (1 + Math.sin(Math.PI / 180 * (i * 30)))) -
-                        (r * (1 + Math.sin(Math.PI / 180 * (i * 30))));
-                    var top_default = (R * (1 - Math.cos(Math.PI / 180 * (i * 30)))) -
-                        (r * (1 - Math.cos(Math.PI / 180 * (i * 30))));
-                    var left_opposite = (R * (1 + Math.sin(Math.PI / 180 * ((i + 6) * 30)))) -
-                        (r * (1 + Math.sin(Math.PI / 180 * ((i + 6) * 30))));
-                    var top_opposite = (R * (1 - Math.cos(Math.PI / 180 * ((i + 6) * 30)))) -
-                        (r * (1 - Math.cos(Math.PI / 180 * ((i + 6) * 30))));
-
-                    $t.animate({
-                        'left': parseInt($t.css('left')) - parseInt(left_default) < 2 ?
-                            left_opposite : left_default,
-                        'top': parseInt($t.css('top')) - parseInt(top_default) < 2 ?
-                            top_opposite : top_default,
-                    }, {
-                        duration: 3000,
-                        easing: 'swing',
-                        callback: () => {
-
-                        }
-                    })
-                }, 300 * i);
+                    move(i + n, t);
+                }, (during / n) * i);
             })
         }
     </script>
