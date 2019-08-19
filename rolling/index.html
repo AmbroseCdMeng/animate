@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="refresh" content="50">
     <title></title>
     <style>
         * {}
@@ -36,7 +35,6 @@
         .small {
             width: 40px;
             height: 40px;
-
         }
 
         .red {
@@ -47,12 +45,15 @@
             background-color: white;
         }
 
-        .pos-12 {
+        /* 参照定位 */
+        /* .pos-99 {
+            background-color: black;
             position: absolute;
             top: 0;
             left: 200px;
             margin-left: -20px;
-        }
+            z-index: 1;
+        } */
 
         .pos-1 {
             position: absolute;
@@ -67,6 +68,8 @@
 
     <div class="wrapper">
         <div class="inner circle red">
+            <!-- <div class="circle small white pos-99"></div> -->
+
             <div class="circle small white pos-12"></div>
 
             <div class="circle small white pos-1"></div>
@@ -75,6 +78,8 @@
 
             <div class="circle small white pos-4"></div>
             <div class="circle small white pos-5"></div>
+
+            <!-- 
             <div class="circle small white pos-6"></div>
 
             <div class="circle small white pos-7"></div>
@@ -83,29 +88,70 @@
 
             <div class="circle small white pos-10"></div>
             <div class="circle small white pos-11"></div>
+             -->
         </div>
     </div>
 
     <script>
+        var R = parseInt($('.inner.circle').css('width')) / 2;
+
         $(function () {
             initPostition();
+            start();
         })
-        function initPostition() {
-            const R = parseInt($('.inner.circle').css('width')) / 2;
-            $('.circle.small').each((i, t) => {
-                t = $(t);
-                const r = parseInt(t.css('width')) / 2;
-                t.css('position', 'absolute');
-                t.css('left', (R * (1 + Math.sin(Math.PI / 180 * (i * 30)))) + 'px');
-                t.css('top', (R * (1 - Math.cos(Math.PI / 180 * (i * 30)))) + 'px');
-                t.css('margin-left', -r * (1 + Math.sin(Math.PI / 180 * (i * 30))) + 'px');
-                t.css('margin-top', -r * (1 - Math.cos(Math.PI / 180 * (i * 30))) + 'px');
 
-                console.log('pos-index' + i + 'r' + r
-                    + '... left:' + t.css('left')
-                    + '... top:' + t.css('top')
-                    + '... margin-left:' + t.css('margin-left')
-                    + '... margin-top:' + t.css('margin-top'))
+        function initPostition() {
+
+            $('.circle.small').each((i, t) => {
+                $t = $(t);
+                const r = parseInt($t.css('width')) / 2;
+                $t.css('position', 'absolute');
+                $t.css('left', (R * (1 + Math.sin(Math.PI / 180 * (i * 30)))) -
+                    (r * (1 + Math.sin(Math.PI / 180 * (i * 30)))) + 'px');
+                $t.css('top', (R * (1 - Math.cos(Math.PI / 180 * (i * 30)))) -
+                    (r * (1 - Math.cos(Math.PI / 180 * (i * 30)))) + 'px');
+
+                // 为了方便实现动画 直接计算 left 和 top 
+                //$t.css('margin-left', -r * (1 + Math.sin(Math.PI / 180 * (i * 30))) + 'px');
+                //$t.css('margin-top', -r * (1 - Math.cos(Math.PI / 180 * (i * 30))) + 'px');
+            })
+        }
+
+        function start() {
+            $('.circle.small').each((i, t) => {
+                setTimeout(() => {
+                    const $t = $(t);
+                    const r = parseInt($t.css('width')) / 2;
+
+                    var left_default = (R * (1 + Math.sin(Math.PI / 180 * (i * 30)))) -
+                        (r * (1 + Math.sin(Math.PI / 180 * (i * 30))));
+                    var top_default = (R * (1 - Math.cos(Math.PI / 180 * (i * 30)))) -
+                        (r * (1 - Math.cos(Math.PI / 180 * (i * 30))));
+                    var left_opposite = (R * (1 + Math.sin(Math.PI / 180 * ((i + 6) * 30)))) -
+                        (r * (1 + Math.sin(Math.PI / 180 * ((i + 6) * 30))));
+                    var top_opposite = (R * (1 - Math.cos(Math.PI / 180 * ((i + 6) * 30)))) -
+                        (r * (1 - Math.cos(Math.PI / 180 * ((i + 6) * 30))));
+
+
+                    console.log(parseInt($(t).css('left')));
+                    console.log(parseInt(left_default));
+                    console.log(i)
+
+                    $t.animate({
+                        // 'left': parseInt($(t).css('left')) == parseInt(left_default) ?
+                        //     left_opposite : left_default,
+                        // 'top': parseInt($(t).css('top')) == parseInt(top_default) ?
+                        //     top_opposite : top_default,
+                        'left': left_opposite,
+                        'top': top_opposite,
+                    }, {
+                        duration: 3000,
+                        easing: 'swing',
+                        callback: () => {
+
+                        }
+                    })
+                }, 300 * i);
             })
         }
     </script>
