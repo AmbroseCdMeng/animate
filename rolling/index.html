@@ -132,18 +132,11 @@
                     var top_opposite = (R * (1 - Math.cos(Math.PI / 180 * ((i + 6) * 30)))) -
                         (r * (1 - Math.cos(Math.PI / 180 * ((i + 6) * 30))));
 
-
-                    console.log(parseInt($(t).css('left')));
-                    console.log(parseInt(left_default));
-                    console.log(i)
-
                     $t.animate({
-                        // 'left': parseInt($(t).css('left')) == parseInt(left_default) ?
-                        //     left_opposite : left_default,
-                        // 'top': parseInt($(t).css('top')) == parseInt(top_default) ?
-                        //     top_opposite : top_default,
-                        'left': left_opposite,
-                        'top': top_opposite,
+                        'left': parseInt($t.css('left')) - parseInt(left_default) < 2 ?
+                            left_opposite : left_default,
+                        'top': parseInt($t.css('top')) - parseInt(top_default) < 2 ?
+                            top_opposite : top_default,
                     }, {
                         duration: 3000,
                         easing: 'swing',
