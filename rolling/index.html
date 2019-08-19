@@ -98,8 +98,8 @@
                 t.css('position', 'absolute');
                 t.css('left', (R * (1 + Math.sin(Math.PI / 180 * (i * 30)))) + 'px');
                 t.css('top', (R * (1 - Math.cos(Math.PI / 180 * (i * 30)))) + 'px');
-                t.css('margin-left', -r * (Math.cos(Math.PI / 180 * (i * 30))) + 'px');
-                t.css('margin-top', -r * (Math.sin(Math.PI / 180 * (i * 30))) + 'px');
+                t.css('margin-left', -r * (1 + Math.sin(Math.PI / 180 * (i * 30))) + 'px');
+                t.css('margin-top', -r * (1 - Math.cos(Math.PI / 180 * (i * 30))) + 'px');
 
                 console.log('pos-index' + i + 'r' + r
                     + '... left:' + t.css('left')
