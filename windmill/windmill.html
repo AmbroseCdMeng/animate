@@ -1,0 +1,95 @@
+<style>
+  .container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    /* animation: rotating 1s infinite linear; */
+  }
+  @keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .wind-center {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(134, 237, 245);
+    animation: rotating 1s infinite linear;
+  }
+
+  .y {
+    position: absolute;
+    left: calc(-15px / 2);
+    top: calc(-15px / 2);
+  }
+
+  .blade {
+    width: 2vw;
+    height: 16vh;
+    position: absolute;
+    left: calc(15px / 2);
+    top: calc(15px / 2);
+    background-color: rgb(255, 0, 242);
+    border-radius: 0 0 100% 0;
+  }
+
+  .blade div.zf {
+    width: 100%;
+    height: 60%;
+    /* background-color: red; */
+  }
+
+  .fan-1 {
+  }
+  .fan-2 {
+    transform-origin: top left;
+    transform: rotate(90deg);
+  }
+  .fan-3 {
+    transform-origin: top left;
+    transform: rotate(180deg);
+  }
+  .fan-4 {
+    transform-origin: top left;
+    transform: rotate(270deg);
+  }
+
+  .zz {
+    border: 1px solid red;
+    width: 1vw;
+    height: 22vh;
+  }
+</style>
+
+<div class="container">
+  <div class="wind-center" style="position: relative;">
+    <div class="blade fan-1">
+      <div class="y wind-center"></div>
+      <div class="zf"></div>
+    </div>
+    <div class="blade fan-2">
+      <div class="y wind-center"></div>
+      <div class="zf"></div>
+    </div>
+    <div class="blade fan-3">
+      <div class="y wind-center"></div>
+      <div class="zf"></div>
+    </div>
+    <div class="blade fan-4">
+      <div class="y wind-center"></div>
+      <div class="zf"></div>
+    </div>
+  </div>
+
+  <div class="zz"></div>
+</div>
