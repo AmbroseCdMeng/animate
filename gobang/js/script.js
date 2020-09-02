@@ -98,7 +98,7 @@ var drawChessBoard = function() {
 
 /* 加载棋盘背景图 */
 var logo = new Image();
-logo.src = "images/logo.png";
+logo.src = "/logo.png";
 context.drawImage(logo, 0, 0, 450, 450);
 drawChessBoard();
  
